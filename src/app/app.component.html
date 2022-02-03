@@ -1,0 +1,13 @@
+<button (click)="muteAudio()">{{ audio.muted ? '🔇' : '🔊' }}</button>
+<div class="container">
+  <div class="row" *ngFor="let line of map; let i = index">
+    <div class="column" *ngFor="let column of line; let j = index">
+      <img *ngIf="!isPlayerPos(i, j) && !isEnemyPos(i, j)" [src]="'../assets/img/' + column + (column === 4 || column === 5 || column === 8 ? '.gif' : '.png')">
+      <img *ngIf="isPlayerPos(i, j) && !isEnemyPos(i, j)" [src]="'../assets/img/3.png'">
+      <img *ngIf="isEnemyPos(i, j)" [src]="'../assets/img/5.gif'">
+    </div>
+  </div>
+</div>
+<div class="score">
+  <p>Kills: {{ enemyKilled }}</p>
+</div>
