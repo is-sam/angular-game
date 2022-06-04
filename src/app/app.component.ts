@@ -12,6 +12,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   readonly MAX_ENEMIES = 5;
   readonly ENEMY_GEN_FREQ = 1000;
   readonly ENEMY_MOV_FREQ = 300;
+  readonly VOLUME = .2;
   readonly MAP = {
     GRASS: 0,
     STONE: 1,
@@ -49,6 +50,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.audio.volume = this.VOLUME;
+    this.deathSound.volume = this.VOLUME;
+    this.explosionSound.volume = this.VOLUME;
+    this.roarSound.volume = this.VOLUME;
+    this.zombieDeathSound.volume = this.VOLUME;
     this.audio.play();
   }
 
@@ -156,12 +162,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   isEnemyPos(x: number, y: number) {
     // TODO: improve
-    for (let enemy of this.enemies) {
-      if (x === enemy.x && y === enemy.y) {
-        return true;
-      }
-    }
-    return false;
+    return this.enemies.find(enemy => enemy.x === x && enemy.y === y) !== undefined;
+    // for (let enemy of this.enemies) {
+    //   if (x === enemy.x && y === enemy.y) {
+    //     return true;
+    //   }
+    // }
+    // return false;
   }
 
   isEnemyOnPlayer(enemy: any) {
